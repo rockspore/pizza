@@ -1,10 +1,16 @@
+/*************************************
+ * 2019 Google HashCode Challenge    *
+ * Practice Problem: Pizza           *
+ * Team HUGE                         *
+ * Yiran Hu and Luwei Ge             *
+ * Feb, 2019                         *
+ *************************************/
+
 #include <fstream>
 #include <iostream>
-#include <vector>
+#include "Pizza.h"
 
-class Pizza {
-public:
-    Pizza(char* filename) {
+Pizza::Pizza(char* filename) {
         std::fstream fs;
         fs.open(filename);
         if (fs.is_open()) {
@@ -27,15 +33,4 @@ public:
         } else {
             std::cout << "Error opening input file!\n";
         }
-    }
-private:
-    std::vector<std::vector<bool>> cells;
-    int nrows, ncols, min_ing, max_ncells;
-};
-
-int main(int argc, char* argv[]) {
-    if (argc > 1) {
-        Pizza pz(argv[1]);
-    }
-    return 0;
 }
