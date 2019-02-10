@@ -1,2 +1,2 @@
 # pizza
-Solve the pizzza problem
+Solve the pizza problem
