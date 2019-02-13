@@ -27,7 +27,6 @@ private:
     std::vector<std::vector<int>> ans;
     int nrows, ncols, min_ing, max_ncells;
     void printTable(bool f = true);
-    std::vector<std::vector<int>> ans;
 };
 
 #endif
