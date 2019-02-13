@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include "Pizza.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -16,13 +17,25 @@ int Pizza::pizzaJudge() {
     bool f = true;
     int area = 0;
     for (int i = 0; i < ans.size() && f; i++) {
+
+        int r1 = min(ans[i][0], ans[i][2]), r2 = max(ans[i][0], ans[i][2]),
+            c1 = min(ans[i][1], ans[i][3]), c2 = max(ans[i][1], ans[i][3]),
+            thisarea = (r2 - r1 + 1) * (c2 - c1 + 1),
+            num_ing = accum_tab[r1][c1] + accum_tab[r2+1][c2+1] - accum_tab[r1][c2+1] - accum_tab[r2+1][c1];
+
+        if (thisarea > max_cells || num_ing < min_ing) {
+            f = false;
+            break;
+        }
+
         for (int j = i + 1; j < ans.size(); j++) {
             if (overlap(ans[i], ans[j])) {
                 f = false;
                 break;
             }
-            area += (ans[i][1] - ans[i][0]) * (a[i][3] - a[i][2]);
         }
+
+        area += thisarea;
     }
 
     if (f) {
