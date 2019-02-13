@@ -26,6 +26,7 @@ private:
     std::vector<std::vector<IngreNum>> accum_tab;
     int nrows, ncols, min_ing, max_ncells;
     void printTable(bool f = true);
+    std::vector<std::vector<int>> ans;
 };
 
 #endif
