@@ -1,0 +1,75 @@
+/*************************************
+ * 2019 Google HashCode Challenge    *
+ * Practice Problem: Pizza           *
+ * Team HUGE                         *
+ * Yiran Hu and Luwei Ge             *
+ * Feb, 2019                         *
+ *************************************/
+
+#include <fstream>
+#include <iostream>
+#include "Pizza.h"
+
+IngreNum::IngreNum(int t, int m) {
+    toma = t;
+    mush = m;
+}
+
+int IngreNum::operator - (IngreNum &in) {
+    int t = toma - in.toma, m = mush - in.mush;
+    return t < m ? t : m;
+}
+
+Pizza::Pizza(char* filename) {
+    std::fstream fs;
+    fs.open(filename);
+    if (fs.is_open()) {
+        fs >> nrows >> ncols >> min_ing >> max_ncells;
+        std::cout << "Number of rows is " << nrows << std::endl;
+        std::cout << "Number of columns is " << ncols << std::endl;
+        std::cout << "Minimum number of each ingredient cells in a slice is " << min_ing << std::endl;
+        std::cout << "maximum total number of cells of a slice " << max_ncells << std::endl;
+        std::string row;
+        getline(fs, row);
+        for (int i = 0; i <= nrows; i++) {
+            //std::cout << row << std::endl;
+            accum_tab.push_back(std::vector<IngreNum>(ncols + 1, IngreNum(0, 0)));
+            if (i > 0) {
+                getline(fs, row);
+                for (int j = 1; j <= ncols; j++) {
+                    accum_tab[i][j].toma = accum_tab[i][j - 1].toma
+                                         + accum_tab[i - 1][j].toma
+                                         - accum_tab[i - 1][j - 1].toma;
+                    accum_tab[i][j].mush = accum_tab[i][j - 1].mush
+                                         + accum_tab[i - 1][j].mush
+                                         - accum_tab[i - 1][j - 1].mush;
+                    if (row[j - 1] == 'T') {
+                        accum_tab[i][j].toma += 1;
+                    } else {
+                        accum_tab[i][j].mush += 1;
+                    }
+                }
+            }
+        }
+        printTable(true);
+        fs.close();
+    } else {
+        std::cout << "Error opening input file!\n";
+    }
+}
+
+void Pizza::printTable(bool f) {
+    for (auto &row: accum_tab) {
+        for (auto &e: row) {
+            std::cout << (f ? e.mush : e.toma) << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int main(int argc, char* argv[]) {
+    if (argc > 1) {
+        Pizza pizza(argv[1]);
+    }
+    return 0;
+}
