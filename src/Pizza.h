@@ -24,6 +24,7 @@ public:
     int pizzaJudge();
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
+    std::vector<std::vector<int>> ans;
     int nrows, ncols, min_ing, max_ncells;
     void printTable(bool f = true);
     std::vector<std::vector<int>> ans;
