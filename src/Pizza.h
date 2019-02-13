@@ -22,11 +22,11 @@ class Pizza {
 public:
     Pizza(char* filename);
     int pizzaJudge();
+    void printTable(bool f = true);
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
     std::vector<std::vector<int>> ans;
     int nrows, ncols, min_ing, max_ncells;
-    void printTable(bool f = true);
 };
 
 #endif

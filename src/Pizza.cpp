@@ -72,13 +72,3 @@ void Pizza::printTable(bool f) {
         std::cout << std::endl;
     }
 }
-
-// testing main function (for debug purpose)
-/*
-int main(int argc, char* argv[]) {
-    if (argc > 1) {
-        Pizza pizza(argv[1]);
-    }
-    return 0;
-}
-*/
