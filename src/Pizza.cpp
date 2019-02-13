@@ -10,16 +10,19 @@
 #include <iostream>
 #include "Pizza.h"
 
+// class to store the accumulative number of tomatos and mushroom
 IngreNum::IngreNum(int t, int m) {
     toma = t;
     mush = m;
 }
 
+// do a minus operation and return the smaller number of two ingredients
 int IngreNum::operator - (IngreNum &in) {
     int t = toma - in.toma, m = mush - in.mush;
     return t < m ? t : m;
 }
 
+// construct Pizza object from the input file
 Pizza::Pizza(char* filename) {
     std::fstream fs;
     fs.open(filename);
@@ -31,9 +34,11 @@ Pizza::Pizza(char* filename) {
         std::cout << "maximum total number of cells of a slice " << max_ncells << std::endl;
         std::string row;
         getline(fs, row);
+        // construct the accumulative table
+        accum_tab = std::vector<std::vector<IngreNum>>(nrows + 1);
         for (int i = 0; i <= nrows; i++) {
             //std::cout << row << std::endl;
-            accum_tab.push_back(std::vector<IngreNum>(ncols + 1, IngreNum(0, 0)));
+            accum_tab[i] = std::vector<IngreNum>(ncols + 1, IngreNum(0, 0));
             if (i > 0) {
                 getline(fs, row);
                 for (int j = 1; j <= ncols; j++) {
@@ -51,13 +56,14 @@ Pizza::Pizza(char* filename) {
                 }
             }
         }
-        printTable(true);
+        //printTable(true);
         fs.close();
     } else {
         std::cout << "Error opening input file!\n";
     }
 }
 
+// print out the table (for debug purpose)
 void Pizza::printTable(bool f) {
     for (auto &row: accum_tab) {
         for (auto &e: row) {
@@ -67,9 +73,12 @@ void Pizza::printTable(bool f) {
     }
 }
 
+// testing main function (for debug purpose)
+/*
 int main(int argc, char* argv[]) {
     if (argc > 1) {
         Pizza pizza(argv[1]);
     }
     return 0;
 }
+*/
