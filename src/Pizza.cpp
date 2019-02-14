@@ -35,24 +35,20 @@ Pizza::Pizza(char* filename) {
         std::string row;
         getline(fs, row);
         // construct the accumulative table
-        accum_tab = std::vector<std::vector<IngreNum>>(nrows + 1);
-        for (int i = 0; i <= nrows; i++) {
-            //std::cout << row << std::endl;
-            accum_tab[i] = std::vector<IngreNum>(ncols + 1, IngreNum(0, 0));
-            if (i > 0) {
-                getline(fs, row);
-                for (int j = 1; j <= ncols; j++) {
-                    accum_tab[i][j].toma = accum_tab[i][j - 1].toma
-                                         + accum_tab[i - 1][j].toma
-                                         - accum_tab[i - 1][j - 1].toma;
-                    accum_tab[i][j].mush = accum_tab[i][j - 1].mush
-                                         + accum_tab[i - 1][j].mush
-                                         - accum_tab[i - 1][j - 1].mush;
-                    if (row[j - 1] == 'T') {
-                        accum_tab[i][j].toma += 1;
-                    } else {
-                        accum_tab[i][j].mush += 1;
-                    }
+        accum_tab = std::vector<std::vector<IngreNum>>(nrows + 1, std::vector<IngreNum>(ncols + 1, IngreNum(0, 0)));
+        for (int i = 1; i <= nrows; i++) {
+            getline(fs, row);
+            for (int j = 1; j <= ncols; j++) {
+                accum_tab[i][j].toma = accum_tab[i][j - 1].toma
+                                     + accum_tab[i - 1][j].toma
+                                     - accum_tab[i - 1][j - 1].toma;
+                accum_tab[i][j].mush = accum_tab[i][j - 1].mush
+                                     + accum_tab[i - 1][j].mush
+                                     - accum_tab[i - 1][j - 1].mush;
+                if (row[j - 1] == 'T') {
+                    accum_tab[i][j].toma += 1;
+                } else {
+                    accum_tab[i][j].mush += 1;
                 }
             }
         }
