@@ -1,4 +1,4 @@
-#include "../src/Pizza.h"
+#include "Pizza.h"
 #include <iostream>
 
 int main(int argc, char* argv[]) {
