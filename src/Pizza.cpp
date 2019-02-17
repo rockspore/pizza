@@ -8,7 +8,7 @@
 
 #include <fstream>
 #include <iostream>
-#include "Pizza.h"
+#include "../include/Pizza.h"
 
 // class to store the accumulative number of tomatos and mushroom
 IngreNum::IngreNum(int t, int m) {

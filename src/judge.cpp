@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <fstream>
-#include "Pizza.h"
+#include "../include/Pizza.h"
 #include <cstdlib>
 
 using namespace std;
