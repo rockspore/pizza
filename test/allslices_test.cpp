@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void findSlices(char* filename, vector<vector<int>>& slices) {
+void findSlices(const char* filename, vector<vector<int>>& slices) {
     fstream fs;
     fs.open(filename, ios_base::in);
     int n, m, min_ing, max_cell;
@@ -78,6 +78,40 @@ void findSlices(char* filename, vector<vector<int>>& slices) {
 
 }
 
+vector<string> readPizza(const char* filename) {
+// return a vector of strings, each string represents a row in the pizza.
+    fstream fs;
+    fs.open(filename, ios_base::in);
+    int n, m, min_ing, max_cell;
+    
+    cout << "Reading file: " << filename << endl;
+    if (fs.is_open()) {
+        fs >> n >> m >> min_ing >> max_cell;
+        cout << "Pizza size:" << n << " * " << m << endl;
+        cout << "Minimum ingredient: " << min_ing << endl;
+        cout << "Maximum slice: " << max_cell << endl;
+        
+        vector<string> pizza(n);
+        string temp_str;
+        getline(fs, temp_str);
+        
+        for (int i = 0; i < n; i++) {
+            getline(fs, pizza[i]);
+        }
+        return pizza;
+    } else {
+        return vector<string>(0);
+    }
+}
+
+void outputSlice(const vector<string>& pizza, vector<int> slice) {
+// Give me a slice, I can output it for you
+    cout << "Slice: [" << slice[0] << ", " << slice[1] << "] -> [" << slice[2] << ", " << slice[3] << "]\n";
+    for (int i = slice[0]; i <= slice[2]; i++) {
+        cout << pizza[i].substr(slice[1], slice[3] - slice[1] + 1) << endl;
+    }
+}
+
 int main(int argc, char* argv[]){
     char *filename = new char(100);
     if (argc > 1) strcpy(filename, argv[1]);
@@ -86,4 +120,10 @@ int main(int argc, char* argv[]){
     vector<vector<int>> slices;
     findSlices(argv[1], slices);
     cout << slices.size() << endl;
+
+    vector<string> pizza = readPizza(filename);
+    for (int i = 0; i < slices.size(); i++) {
+        outputSlice(pizza, slices[i]);
+    }
+
 }
