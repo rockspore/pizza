@@ -23,10 +23,18 @@ public:
     Pizza(char* filename);
     int pizzaJudge();
     void printTable(bool f = true);
+    void printShapes();
+    bool fill(int r, int c);
+    int getArea();
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
+    std::vector<std::vector<bool>> used;
     std::vector<std::vector<int>> ans;
-    int nrows, ncols, min_ing, max_ncells;
+    std::vector<std::vector<int>> shapes;
+    int nrows, ncols, min_ing, max_ncells, area;
+    void constructShapes();
+    bool isAvailable(int row, int col, std::vector<int>& shape);
+    void markUsed(int row, int col, std::vector<int>& shape);
 };
 
 #endif
