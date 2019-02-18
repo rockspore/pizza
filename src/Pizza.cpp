@@ -27,7 +27,7 @@ int IngreNum::operator - (IngreNum &in) {
 // construct Pizza object from the input file
 Pizza::Pizza(char* filename) {
     std::fstream fs;
-    fs.open(filename);
+    fs.open(filename, std::fstream::in);
     if (fs.is_open()) {
         fs >> nrows >> ncols >> min_ing >> max_ncells;
         std::cout << "Number of rows is " << nrows << std::endl;
@@ -91,12 +91,24 @@ bool Pizza::fill(int r, int c) {
         if (isAvailable(r, c, s)) {
             //std::cout << "find available area to fill\n";
             markUsed(r, c, s);
+            ans.push_back(std::vector<int>({r, c, r + s[0] - 1, c + s[1] - 1}));
             fill(r + s[0], c);
             fill(r, c + s[1]);
             return true;
         }
     }
+    //if (!fill(r + 1, c))
+    //    fill(r, c + 1);
     return false;
+}
+
+void Pizza::outputAnswer(const char* filename) {
+    fstream fs;
+    fs.open(filename, std::fstream::out);
+    fs << ans.size() << std::endl;
+    for (auto &a: ans) {
+        fs << a[0] << " " << a[1] << " " << a[2] << " " << a[3] << std::endl;
+    }
 }
 
 bool Pizza::isAvailable(int row, int col, std::vector<int>& shape) {
