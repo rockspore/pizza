@@ -5,7 +5,11 @@ int main(int argc, char* argv[]) {
     if (argc > 1) {
         Pizza pizza(argv[1]);
         pizza.printShapes();
-        pizza.fill(0, 0);
+        for (int i = 0; i < 1000; i += 2) {
+            pizza.fill(i, 0);
+            pizza.fill(0, i);
+            pizza.fill(i, i);
+        }
         std::cout << "Filled Area: " << pizza.getArea() << "\n";
         if (argc > 2)
             pizza.outputAnswer(argv[2]);
