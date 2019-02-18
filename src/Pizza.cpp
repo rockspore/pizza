@@ -92,8 +92,8 @@ bool Pizza::fill(int r, int c) {
             //std::cout << "find available area to fill\n";
             markUsed(r, c, s);
             ans.push_back(std::vector<int>({r, c, r + s[0] - 1, c + s[1] - 1}));
-            fill(r + s[0], c);
-            fill(r, c + s[1]);
+            //fill(r + s[0], c);
+            //fill(r, c + s[1]);
             return true;
         }
     }
