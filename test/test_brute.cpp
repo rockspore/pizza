@@ -6,9 +6,9 @@ int main(int argc, char* argv[]) {
         Pizza pizza(argv[1]);
         pizza.printShapes();
         for (int i = 0; i < 1000; i += 2) {
-            pizza.fill(i, 0);
-            pizza.fill(0, i);
-            pizza.fill(i, i);
+            for (int j = 0; j < 1000; j += 2) {
+            pizza.fill(i, j);
+            }
         }
         std::cout << "Filled Area: " << pizza.getArea() << "\n";
         if (argc > 2)
