@@ -108,7 +108,7 @@ bool Pizza::isAvailable(int row, int col, std::vector<int>& shape) {
         }
     }
     int r1 = row, r2 = row + shape[0] - 1;
-    int c1 = col, c2 = col + shape[0] - 1;
+    int c1 = col, c2 = col + shape[1] - 1;
     int num_toma = accum_tab[r1][c1].toma + accum_tab[r2+1][c2+1].toma
                  - accum_tab[r1][c2+1].toma - accum_tab[r2+1][c1].toma;
     int num_mush = accum_tab[r1][c1].mush + accum_tab[r2+1][c2+1].mush
