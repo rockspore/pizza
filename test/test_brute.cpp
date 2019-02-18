@@ -5,8 +5,8 @@ int main(int argc, char* argv[]) {
     if (argc > 1) {
         Pizza pizza(argv[1]);
         pizza.printShapes();
-        for (int i = 0; i < 1000; i += 2) {
-            for (int j = 0; j < 1000; j += 2) {
+        for (int i = 0; i < 1000; i += 1) {
+            for (int j = 0; j < 1000; j += 1) {
             pizza.fill(i, j);
             }
         }
