@@ -6,3 +6,7 @@ test_1: include/Pizza.h src/Pizza.cpp src/judge.cpp
 
 test_brute: include/Pizza.h src/Pizza.cpp src/judge.cpp
 	g++ -o brute test/test_brute.cpp src/Pizza.cpp src/judge.cpp ${CFLAG} ${INCL}
+
+test_BMP: include/BMP.h src/BMP.cpp test/test_BMP.cpp
+	g++ -o test_BMP include/BMP.h src/BMP.cpp test/test_BMP.cpp ${CFLAG} ${INCL}
+
