@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void BMPWrite(const char* filename, vector<vector<vector<int>>> data) {
+void BMPWrite(const char* filename, const vector<vector<vector<int>>>& data) {
     int w = data[0].size(), h = data.size();
     FILE *f;
     unsigned char *img = NULL;
@@ -15,14 +15,13 @@ void BMPWrite(const char* filename, vector<vector<vector<int>>> data) {
     img = (unsigned char *)malloc(3*w*h);
     memset(img,0,3*w*h);
 
-    for(int i=0; i<w; i++)
+    for(int i=0; i<h; i++)
     {
-        for(int j=0; j<h; j++)
+        for(int j=0; j<w; j++)
         {
-            int x=i, y=j;
-            img[(x+y*w)*3+2] = (unsigned char)(data[i][j][0]);
-            img[(x+y*w)*3+1] = (unsigned char)(data[i][j][1]);
-            img[(x+y*w)*3+0] = (unsigned char)(data[i][j][2]);
+            img[(j+i*w)*3+2] = (unsigned char)(data[i][j][0]);
+            img[(j+i*w)*3+1] = (unsigned char)(data[i][j][1]);
+            img[(j+i*w)*3+0] = (unsigned char)(data[i][j][2]);
         }
     }
 

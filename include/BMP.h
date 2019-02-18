@@ -1,10 +1,10 @@
-#ifdef BMP_H
+#ifndef BMP_H
 #define BMP_H
 
 #include <vector>
 
 using namespace std;
 
-void BMPWrite(const char*, vector<vector<vector<int>>>);
+void BMPWrite(const char*, const vector<vector<vector<int>>>&);
 
 #endif

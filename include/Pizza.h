@@ -26,6 +26,7 @@ public:
     void printShapes();
     bool fill(int r, int c);
     int getArea();
+    void writeFilling(const char*);
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
     std::vector<std::vector<bool>> used;

@@ -9,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 #include "Pizza.h"
+#include "BMP.h"
+#include <algorithm>
 
 // class to store the accumulative number of tomatos and mushroom
 IngreNum::IngreNum(int t, int m) {
@@ -142,4 +144,18 @@ void Pizza::printShapes() {
 
 int Pizza::getArea() {
     return area;
+}
+
+void Pizza::writeFilling(const char* filename) {
+    std::vector<std::vector<std::vector<int>>> data(used.size(), std::vector<std::vector<int>>(used[0].size(), std::vector<int>(3, 0)));
+    for (int i = 0; i < data.size(); i++) {
+        for (int j = 0; j < data[0].size(); j++) {
+            if (used[i][j]) {
+                data[i][j][0] = 255;
+                data[i][j][1] = 255;
+                data[i][j][2] = 255;
+            }
+        }
+    }
+    BMPWrite(filename, data);
 }
