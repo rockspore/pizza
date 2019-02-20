@@ -11,6 +11,7 @@
 #include "Pizza.h"
 #include "BMP.h"
 #include <algorithm>
+#include <random>
 
 // class to store the accumulative number of tomatos and mushroom
 IngreNum::IngreNum(int t, int m) {
@@ -76,7 +77,18 @@ void Pizza::constructShapes() {
         }
     }
     std::sort(shapes.begin(), shapes.end(), [] (std::vector<int> &v1, std::vector<int> &v2)
-        { return v1[0]*v1[1] > v2[0]*v2[1]; });
+        { return v1[1] > v2[1]; });
+    std::random_device rd;
+    auto rng = std::mt19937(rd());
+    std::shuffle(shapes.begin(), shapes.end(), rng);
+}
+
+int Pizza::getNumCols() {
+    return ncols;
+}
+
+int Pizza::getNumRows() {
+    return nrows;
 }
 
 bool Pizza::fill(int r, int c) {
@@ -156,6 +168,15 @@ void Pizza::printShapes() {
 
 int Pizza::getArea() {
     return area;
+}
+
+void Pizza::reset() {
+    used = std::vector<std::vector<bool>>(nrows, std::vector<bool>(ncols, false));
+    ans.clear();
+    area = 0;
+    std::random_device rd;
+    auto rng = std::mt19937(rd());
+    std::shuffle(shapes.begin(), shapes.end(), rng);
 }
 
 void Pizza::writeFilling(const char* filename) {

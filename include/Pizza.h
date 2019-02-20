@@ -28,6 +28,9 @@ public:
     int getArea();
     void writeFilling(const char*);
     void outputAnswer(const char*);
+    int getNumCols();
+    int getNumRows();
+    void reset();
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
     std::vector<std::vector<bool>> used;
