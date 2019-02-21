@@ -25,18 +25,24 @@ public:
     void printTable(bool f = true);
     void printShapes();
     bool fill(int r, int c);
+    bool fillR(int, int);
     int getArea();
     void writeFilling(const char*);
     void outputAnswer(const char*);
+    void anneal(int, int, int, int, double);
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
     std::vector<std::vector<bool>> used;
     std::vector<std::vector<int>> ans;
     std::vector<std::vector<int>> shapes;
+    std::vector<std::vector<int>> shapesR;
     int nrows, ncols, min_ing, max_ncells, area;
     void constructShapes();
     bool isAvailable(int row, int col, std::vector<int>& shape);
     void markUsed(int row, int col, std::vector<int>& shape);
+    void markUsed(const std::vector<int>&);
+    void unmarkUsed(const std::vector<int>&);
+    void fillArea(int, int, int, int);
 };
 
 #endif
