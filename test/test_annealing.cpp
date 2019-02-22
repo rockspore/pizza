@@ -21,12 +21,17 @@ int main(int argc, char* argv[]) {
         // Annealing
         int block_size = std::stoi(argv[4]);
         int stride_size = std::stoi(argv[5]);
-        for (int i = 0; i < 1000; i += stride_size) {
-            for (int j = 0; j < 1000; i += stride_size) {
+        double prob;
+        if (argc > 6) prob = stod(argv[6]);
+        else          prob = 0.5;
+        
+        for (int i = 0; i <= 1000-block_size; i += stride_size) {
+            for (int j = 0; j <= 1000-block_size; j += stride_size) {
                 int r1 = i, c1 = j,
-                    r2 = std::min(i+block_size-1, 1000),
-                    c2 = std::min(j+block_size-1, 1000);
-                pizza.anneal(r1, c1, r2, c2, 0.9);
+                    r2 = i+block_size-1,
+                    c2 = j+block_size-1;
+                std::cout << "Annealing area [" << r1 << ", " << c1 << "] -> [" << r2 << ", " << c2 << "]\n";
+                pizza.anneal(r1, c1, r2, c2, 1.0);
             }
         }
         std::cout << "Filled Area: " << pizza.getArea() << "\n";

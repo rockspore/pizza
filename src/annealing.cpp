@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <ctime>
+#include <iostream>
 
 using namespace std;
 
@@ -22,17 +23,20 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob) {
     vector<int> del_slices; // Marks delected answers
     int old_area = area, old_ans_size = ans.size(); // Record old parameters.
     for (int i = 0; i < ans.size(); i++) {
-        if (ans[i][0] >= r1 && ans[i][1] >= c1 && ans[i][0] < r2 && ans[i][1] < c2) {continue;}
+        if (ans[i][0] < r1 || ans[i][1] < c1 || ans[i][0] > r2 || ans[i][1] > c2) {continue;}
         if ((1.0 * rand() / RAND_MAX) <= prob) {
             del_slices.push_back(i);
             unmarkUsed(ans[i]);
         }
     }
+    cout << "Deleted " << del_slices.size() << "slices\n";
 
-    fillArea(r1, c1, r2, c2);
+    fillArea(max(r1-15, 0), max(c1-15, 0), min(r2+15, nrows-1), min(c2+15, ncols-1));
 
+    cout << "New area: " << area << endl;
     if (area >= old_area) {
         // Accept new solution
+        cout << "Accepting new solution, area: " << area << endl;
         for (int i : del_slices) {
             ans[i][0] = -1;
         }
@@ -52,6 +56,7 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob) {
             markUsed(ans[i]);
         }
         ans.erase(ans.begin()+old_ans_size, ans.end());
+        cout << "Rejecting new solution, area: " << area << endl;
     }
 }
 
