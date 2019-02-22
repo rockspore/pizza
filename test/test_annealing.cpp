@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
         pizza.printShapes();
         for (int i = 0; i < 1000; i += 1) {
             for (int j = 0; j < 1000; j += 1) {
-            pizza.fill(i, j);
+                pizza.fill(999-i, j);
             }
         }
         std::cout << "Filled Area: " << pizza.getArea() << "\n";
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
         int block_size = std::stoi(argv[4]);
         int stride_size = std::stoi(argv[5]);
         double prob;
-        if (argc > 6) prob = stod(argv[6]);
+        if (argc > 6) prob = std::stod(argv[6]);
         else          prob = 0.5;
         
         for (int i = 0; i <= 1000-block_size; i += stride_size) {

@@ -43,6 +43,7 @@ private:
     void markUsed(const std::vector<int>&);
     void unmarkUsed(const std::vector<int>&);
     void fillArea(int, int, int, int);
+    void fillAreaR(int, int, int, int);
 };
 
 #endif

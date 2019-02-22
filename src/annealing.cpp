@@ -29,7 +29,7 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob) {
             unmarkUsed(ans[i]);
         }
     }
-    cout << "Deleted " << del_slices.size() << "slices\n";
+    cout << "Deleted " << del_slices.size() << " slices\n";
 
     fillArea(max(r1-15, 0), max(c1-15, 0), min(r2+15, nrows-1), min(c2+15, ncols-1));
 
@@ -81,6 +81,15 @@ void Pizza::markUsed(const vector<int>& slice) {
 
 // Try filling up a certain area
 void Pizza::fillArea(int r1, int c1, int r2, int c2) {
+    for (int i = r2; i >= r1; i--) {
+        for (int j = c1; j <=c2; j++) {
+            fillR(i, j);
+        }
+    }
+}
+
+// Try filling up a certain area
+void Pizza::fillAreaR(int r1, int c1, int r2, int c2) {
     srand ( unsigned ( time(0) ) );
     vector<vector<int>> lineup((abs(r2-r1)+1)*(abs(c2-c1)+1), vector<int>(2, 0));
     int idx = 0;
