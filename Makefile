@@ -15,3 +15,6 @@ test_annealing: include/Pizza.h include/BMP.h src/Pizza.cpp src/judge.cpp src/BM
 
 test_BMP: include/BMP.h src/BMP.cpp test/test_BMP.cpp
 	g++ -o test_BMP include/BMP.h src/BMP.cpp test/test_BMP.cpp ${CFLAG} ${INCL}
+
+run_annealing: brute_annealing
+	./brute_annealing data/d_big.in d_1.out d_2.out 20 5 0.1 330 > d_data_2019-02-22.log
