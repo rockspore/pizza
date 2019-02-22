@@ -30,6 +30,8 @@ public:
     bool fillSH(int, int);
     bool fillSV(int, int);
     int getArea();
+    int getNumRows();
+    int getNumCols();
     void writeFilling(const char*);
     void outputAnswer(const char*);
     void anneal(int, int, int, int, double, bool);

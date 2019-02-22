@@ -77,7 +77,7 @@ void Pizza::constructShapes() {
     }
     std::sort(shapes.begin(), shapes.end(), [] (std::vector<int> &v1, std::vector<int> &v2)
         { return v1[0]*v1[1] > v2[0]*v2[1]; });
-    
+
     for (auto shape : shapes) {
         if (1.0 * std::min(shape[0], shape[1]) / std::max(shape[0], shape[1]) > 0.8) {
             shapesB.push_back(shape);
@@ -250,6 +250,14 @@ int Pizza::getArea() {
     return area;
 }
 
+int Pizza::getNumRows() {
+    return nrows;
+}
+
+int Pizza::getNumCols() {
+    return ncols;
+}
+
 void Pizza::writeFilling(const char* filename) {
     std::vector<std::vector<std::vector<int>>> data(used.size(), std::vector<std::vector<int>>(used[0].size(), std::vector<int>(3, 0)));
     for (int i = 0; i < data.size(); i++) {
@@ -263,4 +271,3 @@ void Pizza::writeFilling(const char* filename) {
     }
     BMPWrite(filename, data);
 }
-
