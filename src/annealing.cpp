@@ -10,6 +10,7 @@
 #include <vector>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 
 using namespace std;
 
@@ -92,7 +93,7 @@ void Pizza::fillArea(int r1, int c1, int r2, int c2) {
 }
 
 // Filling with randomized shape order
-void Pizza::fillR(int r, int c) {
+bool Pizza::fillR(int r, int c) {
     srand ( unsigned ( time(0) ) );
     random_shuffle(shapesR.begin(), shapesR.end());
     if (r < 0 || r > nrows - 1) {

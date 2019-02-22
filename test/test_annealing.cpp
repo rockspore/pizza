@@ -1,6 +1,7 @@
 #include "Pizza.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 int main(int argc, char* argv[]) {
     if (argc > 1) {
@@ -23,8 +24,8 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < 1000; i += stride_size) {
             for (int j = 0; j < 1000; i += stride_size) {
                 int r1 = i, c1 = j,
-                    r2 = min(i+block_size-1, 1000),
-                    c2 = min(j+block_size-1, 1000);
+                    r2 = std::min(i+block_size-1, 1000),
+                    c2 = std::min(j+block_size-1, 1000);
                 pizza.anneal(r1, c1, r2, c2, 0.9);
             }
         }
