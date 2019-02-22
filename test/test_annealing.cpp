@@ -33,13 +33,17 @@ int main(int argc, char* argv[]) {
         
 
         int count = 0;
-        for (int tstart = clock(); 1.0 * (clock()-tstart) / CLOCKS_PER_SEC / 60 <= tot_time;) {
+        for (int tstart = clock(), telps = 0; 1.0 * (telps) / CLOCKS_PER_SEC / 60 <= tot_time;) {
             for (int i = 0; i <= 1000-block_size; i += stride_size) {
                 for (int j = 0; j <= 1000-block_size; j += stride_size) {
                     int r1 = i, c1 = j,
                         r2 = i+block_size-1,
                         c2 = j+block_size-1;
                     // std::cout << "Annealing area [" << r1 << ", " << c1 << "] -> [" << r2 << ", " << c2 << "]\n";
+                    telps = clock()-tstart;
+                    if (count % 1000 == 0) {
+                        std::cout << 1.0 * (telps) / CLOCKS_PER_SEC / 60.0 << " ";
+                    }
                     pizza.anneal(r1, c1, r2, c2, prob, count % 1000 == 0);
                     count++;
                 }

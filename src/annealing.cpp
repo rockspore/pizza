@@ -30,17 +30,12 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob, bool output) {
         }
     }
 
-    if (output)
-        cout << "Deleted " << del_slices.size() << " slices\n";
-
     fillArea(max(r1-15, 0), max(c1-15, 0), min(r2+15, nrows-1), min(c2+15, ncols-1));
     
-    if (output)
-        cout << "New area: " << area << endl;
     if (area >= old_area) {
         // Accept new solution
         if (output)
-            cout << "Accepting new solution, area: " << area << endl;
+            cout << area << endl;
         for (int i : del_slices) {
             ans[i][0] = -1;
         }
@@ -61,7 +56,7 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob, bool output) {
         }
         ans.erase(ans.begin()+old_ans_size, ans.end());
         if (output)
-            cout << "Rejecting new solution, area: " << area << endl;
+            cout << area << endl;
     }
 }
 
