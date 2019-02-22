@@ -17,7 +17,7 @@ using namespace std;
 
 // Randomly remove a certain amount of slices in an area and refill.
 // If the newly found solution includes more cells then adopt the new solution
-void Pizza::anneal(int r1, int c1, int r2, int c2, double prob) {
+void Pizza::anneal(int r1, int c1, int r2, int c2, double prob, bool output) {
     srand ( unsigned ( time(0) ) );
 
     vector<int> del_slices; // Marks delected answers
@@ -29,14 +29,18 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob) {
             unmarkUsed(ans[i]);
         }
     }
-    cout << "Deleted " << del_slices.size() << " slices\n";
+
+    if (output)
+        cout << "Deleted " << del_slices.size() << " slices\n";
 
     fillArea(max(r1-15, 0), max(c1-15, 0), min(r2+15, nrows-1), min(c2+15, ncols-1));
-
-    cout << "New area: " << area << endl;
+    
+    if (output)
+        cout << "New area: " << area << endl;
     if (area >= old_area) {
         // Accept new solution
-        cout << "Accepting new solution, area: " << area << endl;
+        if (output)
+            cout << "Accepting new solution, area: " << area << endl;
         for (int i : del_slices) {
             ans[i][0] = -1;
         }
@@ -56,7 +60,8 @@ void Pizza::anneal(int r1, int c1, int r2, int c2, double prob) {
             markUsed(ans[i]);
         }
         ans.erase(ans.begin()+old_ans_size, ans.end());
-        cout << "Rejecting new solution, area: " << area << endl;
+        if (output)
+            cout << "Rejecting new solution, area: " << area << endl;
     }
 }
 
@@ -83,7 +88,9 @@ void Pizza::markUsed(const vector<int>& slice) {
 void Pizza::fillArea(int r1, int c1, int r2, int c2) {
     for (int i = r2; i >= r1; i--) {
         for (int j = c1; j <=c2; j++) {
-            fillR(i, j);
+            fillSV(i, j);
+            fillSH(i, j);
+            fillB(i, j);
         }
     }
 }

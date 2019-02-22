@@ -27,11 +27,12 @@ public:
     bool fill(int r, int c);
     bool fillR(int, int);
     bool fillB(int, int);
-    bool fillS(int, int);
+    bool fillSH(int, int);
+    bool fillSV(int, int);
     int getArea();
     void writeFilling(const char*);
     void outputAnswer(const char*);
-    void anneal(int, int, int, int, double);
+    void anneal(int, int, int, int, double, bool);
 private:
     std::vector<std::vector<IngreNum>> accum_tab;
     std::vector<std::vector<bool>> used;
@@ -39,7 +40,8 @@ private:
     std::vector<std::vector<int>> shapes;
     std::vector<std::vector<int>> shapesR;
     std::vector<std::vector<int>> shapesB;
-    std::vector<std::vector<int>> shapesS;
+    std::vector<std::vector<int>> shapesSH;
+    std::vector<std::vector<int>> shapesSV;
     int nrows, ncols, min_ing, max_ncells, area;
     void constructShapes();
     bool isAvailable(int row, int col, std::vector<int>& shape);

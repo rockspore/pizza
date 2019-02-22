@@ -79,10 +79,13 @@ void Pizza::constructShapes() {
         { return v1[0]*v1[1] > v2[0]*v2[1]; });
     
     for (auto shape : shapes) {
-        if (1.0 * std::min(shape[0], shape[1]) / std::max(shape[0], shape[1]) > 0.5) {
+        if (1.0 * std::min(shape[0], shape[1]) / std::max(shape[0], shape[1]) > 0.8) {
             shapesB.push_back(shape);
         } else {
-            shapesS.push_back(shape);
+            if (shape[0] < shape[1])
+                shapesSH.push_back(shape);
+            else
+                shapesSV.push_back(shape);
         }
     }
 
@@ -140,16 +143,42 @@ bool Pizza::fillB(int r, int c) {
 }
 
 // Fill with the slim shapes
-bool Pizza::fillS(int r, int c) {
+bool Pizza::fillSH(int r, int c) {
     srand ( unsigned ( time(0) ) );
-    random_shuffle(shapesS.begin(), shapesS.end());
+    random_shuffle(shapesSH.begin(), shapesSH.end());
     if (r < 0 || r > nrows - 1) {
         return false;
     }
     if (c < 0 || c > ncols - 1) {
         return false;
     }
-    for (auto& s: shapesS) {
+    for (auto& s: shapesSH) {
+        //std::cout << s[0] << "x" << s[1] << "\n";
+        if (isAvailable(r, c, s)) {
+            //std::cout << "find available area to fill\n";
+            markUsed(r, c, s);
+            ans.push_back(std::vector<int>({r, c, r + s[0] - 1, c + s[1] - 1}));
+            //fill(r + s[0], c);
+            //fill(r, c + s[1]);
+            return true;
+        }
+    }
+    //if (!fill(r + 1, c))
+    //    fill(r, c + 1);
+    return false;
+}
+
+// Fill with the slim shapes
+bool Pizza::fillSV(int r, int c) {
+    srand ( unsigned ( time(0) ) );
+    random_shuffle(shapesSV.begin(), shapesSV.end());
+    if (r < 0 || r > nrows - 1) {
+        return false;
+    }
+    if (c < 0 || c > ncols - 1) {
+        return false;
+    }
+    for (auto& s: shapesSV) {
         //std::cout << s[0] << "x" << s[1] << "\n";
         if (isAvailable(r, c, s)) {
             //std::cout << "find available area to fill\n";
