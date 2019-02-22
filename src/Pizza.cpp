@@ -78,6 +78,14 @@ void Pizza::constructShapes() {
     std::sort(shapes.begin(), shapes.end(), [] (std::vector<int> &v1, std::vector<int> &v2)
         { return v1[0]*v1[1] > v2[0]*v2[1]; });
     
+    for (auto shape : shapes) {
+        if (1.0 * std::min(shape[0], shape[1]) / std::max(shape[0], shape[1]) > 0.5) {
+            shapesB.push_back(shape);
+        } else {
+            shapesS.push_back(shape);
+        }
+    }
+
     // shapesR is for randomized shapes order
     shapesR = shapes;
 }
@@ -90,6 +98,58 @@ bool Pizza::fill(int r, int c) {
         return false;
     }
     for (auto& s: shapes) {
+        //std::cout << s[0] << "x" << s[1] << "\n";
+        if (isAvailable(r, c, s)) {
+            //std::cout << "find available area to fill\n";
+            markUsed(r, c, s);
+            ans.push_back(std::vector<int>({r, c, r + s[0] - 1, c + s[1] - 1}));
+            //fill(r + s[0], c);
+            //fill(r, c + s[1]);
+            return true;
+        }
+    }
+    //if (!fill(r + 1, c))
+    //    fill(r, c + 1);
+    return false;
+}
+
+// Fill with bulky shapes
+bool Pizza::fillB(int r, int c) {
+    srand ( unsigned ( time(0) ) );
+    random_shuffle(shapesB.begin(), shapesB.end());
+    if (r < 0 || r > nrows - 1) {
+        return false;
+    }
+    if (c < 0 || c > ncols - 1) {
+        return false;
+    }
+    for (auto& s: shapesB) {
+        //std::cout << s[0] << "x" << s[1] << "\n";
+        if (isAvailable(r, c, s)) {
+            //std::cout << "find available area to fill\n";
+            markUsed(r, c, s);
+            ans.push_back(std::vector<int>({r, c, r + s[0] - 1, c + s[1] - 1}));
+            //fill(r + s[0], c);
+            //fill(r, c + s[1]);
+            return true;
+        }
+    }
+    //if (!fill(r + 1, c))
+    //    fill(r, c + 1);
+    return false;
+}
+
+// Fill with the slim shapes
+bool Pizza::fillS(int r, int c) {
+    srand ( unsigned ( time(0) ) );
+    random_shuffle(shapesS.begin(), shapesS.end());
+    if (r < 0 || r > nrows - 1) {
+        return false;
+    }
+    if (c < 0 || c > ncols - 1) {
+        return false;
+    }
+    for (auto& s: shapesS) {
         //std::cout << s[0] << "x" << s[1] << "\n";
         if (isAvailable(r, c, s)) {
             //std::cout << "find available area to fill\n";

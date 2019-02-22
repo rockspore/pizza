@@ -26,6 +26,8 @@ public:
     void printShapes();
     bool fill(int r, int c);
     bool fillR(int, int);
+    bool fillB(int, int);
+    bool fillS(int, int);
     int getArea();
     void writeFilling(const char*);
     void outputAnswer(const char*);
@@ -36,6 +38,8 @@ private:
     std::vector<std::vector<int>> ans;
     std::vector<std::vector<int>> shapes;
     std::vector<std::vector<int>> shapesR;
+    std::vector<std::vector<int>> shapesB;
+    std::vector<std::vector<int>> shapesS;
     int nrows, ncols, min_ing, max_ncells, area;
     void constructShapes();
     bool isAvailable(int row, int col, std::vector<int>& shape);
